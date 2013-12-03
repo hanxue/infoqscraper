@@ -12,3 +12,6 @@ script: nosetests -w infoqscraper/test/ -w bintest/infoqscraper/ \
 
 # build and install the binary
 script: "python setup.py install"
+
+# test if the application runs
+script: "python infoqscraper/main.py presentation list"
