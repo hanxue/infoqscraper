@@ -187,11 +187,14 @@ class Presentation(object):
 
 class Downloader(object):
 
-    def __init__(self, presentation, ffmpeg="ffmpeg", rtmpdump="rtmpdump", swfrender="swfrender"):
+    def __init__(self, presentation, overwrite="-n", ffmpeg="ffmpeg", rtmpdump="rtmpdump", swfrender="swfrender", overwrite="-n"):
         self.presentation = presentation
         self.ffmpeg = ffmpeg
         self.rtmpdump = rtmpdump
         self.swfrender = swfrender
+        self.overwrite = overwrite
+    #def __init__(self, **kwargs):
+    #    self.__dict__.update(kwargs)
 
     def __enter__(self):
         return self
@@ -343,7 +346,7 @@ class Downloader(object):
                 "-i", audio,
                 "-f", "image2", "-r", "1", "-s", "hd720","-i", frame_pattern,
                 "-map", "1:0", "-acodec", "libmp3lame", "-ab", "128k",
-                "-map", "0:1", "-vcodec", "mpeg4", "-vb", "2M",
+                "-map", "0:1", "-vcodec", "mpeg4", "-vb", "2M", self.overwrite, 
                 output
             ]
             utils.check_output(cmd, stderr=subprocess.STDOUT)
