@@ -187,14 +187,13 @@ class Presentation(object):
 
 class Downloader(object):
 
-    def __init__(self, presentation, overwrite="-n", ffmpeg="ffmpeg", rtmpdump="rtmpdump", swfrender="swfrender", overwrite="-n"):
+    def __init__(self, presentation, overwrite="-n", ffmpeg="ffmpeg", rtmpdump="rtmpdump", swfrender="swfrender", overwrite=False):
         self.presentation = presentation
         self.ffmpeg = ffmpeg
         self.rtmpdump = rtmpdump
         self.swfrender = swfrender
         self.overwrite = overwrite
-    #def __init__(self, **kwargs):
-    #    self.__dict__.update(kwargs)
+
 
     def __enter__(self):
         return self

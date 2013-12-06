@@ -200,7 +200,7 @@ class PresentationModule(Module):
             The number of results and fetched pages can be bounded.
             """
 
-            def __init__(self, pattern=None, max_hits=20, max_pages=5, overwrite="-n"):
+            def __init__(self, pattern=None, max_hits=20, max_pages=5):
                 """
                 Args:
                     pattern: A regex to filter result
@@ -290,18 +290,16 @@ class PresentationModule(Module):
             id = self.__extract_id(args.identifier)
             output = self.__chose_output(args.output, id)
 
-            print("DEBUG: args.overwrite is %s" % args.overwrite)
             try:
                 pres = presentation.Presentation(infoq_client, id)
             except client.DownloadError as e:
                 return warn("Presentation %s not found. Please check your id or url" % id, 2)
 
-            overwrite = "-y" if args.overwrite else "-n";
             kwargs = {
                 "ffmpeg":    args.ffmpeg,
                 "rtmpdump":  args.rtmpdump,
                 "swfrender": args.swfrender,
-                "overwrite": "-y" if args.overwrite else "-n",
+                "overwrite": True if args.overwrite else False,
                 }
 
             with presentation.Downloader(pres, **kwargs) as builder:
